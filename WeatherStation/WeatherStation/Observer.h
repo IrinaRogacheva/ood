@@ -1,6 +1,6 @@
 #pragma once
 
-#include <set>
+#include <map>
 #include <functional>
 
 template <typename T>
@@ -16,7 +16,7 @@ class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(IObserver<T>& observer) = 0;
+	virtual void RegisterObserver(IObserver<T>& observer, const int priority) = 0;
 	virtual void NotifyObservers() = 0;
 	virtual void RemoveObserver(IObserver<T>& observer) = 0;
 };
@@ -27,29 +27,36 @@ class CObservable : public IObservable<T>
 public:
 	typedef IObserver<T> ObserverType;
 
-	void RegisterObserver(ObserverType& observer) override
+	void RegisterObserver(ObserverType& observer, const int priority) override
 	{
-		m_observers.insert(&observer);
+		m_observers.emplace(priority, &observer);
 	}
 
 	void NotifyObservers() override
 	{
 		T data = GetChangedData();
 		auto copyObservers = m_observers;
-		for (auto& observer : copyObservers)
+		for (auto& item : copyObservers)
 		{
-			observer->Update(data);
+			item.second->Update(data);
 		}
 	}
 
 	void RemoveObserver(ObserverType& observer) override
 	{
-		m_observers.erase(&observer);
+		for (auto& item : m_observers)
+		{
+			if (item.second == &observer)
+			{
+				m_observers.erase(item.first);
+				break;
+			}
+		}
 	}
 
 protected:
 	virtual T GetChangedData()const = 0;
 
 private:
-	std::set<ObserverType*> m_observers;
+	std::map<int, ObserverType*> m_observers;
 };

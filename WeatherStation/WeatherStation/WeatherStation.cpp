@@ -1,17 +1,19 @@
 ﻿#include "WeatherData.h"
+#include <sstream>
 
 int main()
 {
 	CWeatherData wd;
 
-	CDisplay display;
-	wd.RegisterObserver(display);
+	std::stringstream output;
+	CDisplay display(output);
+	wd.RegisterObserver(display, 3);
 	
-	CObserverWhoRemovesItself observerWhoRemovesItself(wd);
-	wd.RegisterObserver(observerWhoRemovesItself);
+	CObserverWhoRemovesItself observerWhoRemovesItself(wd, output);
+	wd.RegisterObserver(observerWhoRemovesItself, 2);
 	
-	CStatsDisplay statsDisplay;
-	wd.RegisterObserver(statsDisplay);
+	CStatsDisplay statsDisplay(output);
+	wd.RegisterObserver(statsDisplay, 1);
 
 	wd.SetMeasurements(3, 0.7, 760);
 	wd.SetMeasurements(4, 0.8, 761);

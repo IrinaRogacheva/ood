@@ -14,15 +14,24 @@ struct SWeatherInfo
 
 class CDisplay : public IObserver<SWeatherInfo>
 {
+public:
+	CDisplay(std::ostream& output)
+		:m_output(output)
+	{
+	}
 private:
 	
 	void Update(SWeatherInfo const& data) override
 	{
+		m_output << "CDisplay\n";
+
 		std::cout << "Current Temp " << data.temperature << std::endl;
 		std::cout << "Current Hum " << data.humidity << std::endl;
 		std::cout << "Current Pressure " << data.pressure << std::endl;
 		std::cout << "----------------" << std::endl;
 	}
+
+	std::ostream& m_output;
 };
 
 class CStatisticsUpdater
@@ -62,15 +71,18 @@ private:
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
 public:
-	CStatsDisplay()
+	CStatsDisplay(std::ostream& output)
 		: m_temperatureStatistic(CStatisticsUpdater("Temp"))
 		, m_humidityStatistic(CStatisticsUpdater("Hum"))
 		, m_pressureStatistic(CStatisticsUpdater("Pressure"))
+		, m_output(output)
 	{
 	}
 private:
 	void Update(SWeatherInfo const& data) override
 	{
+		m_output << "CStatsDisplay\n";
+
 		m_temperatureStatistic.UpdateStatistics(data.temperature);
 		m_humidityStatistic.UpdateStatistics(data.humidity);
 		m_pressureStatistic.UpdateStatistics(data.pressure);
@@ -79,6 +91,7 @@ private:
 	CStatisticsUpdater m_temperatureStatistic;
 	CStatisticsUpdater m_humidityStatistic;
 	CStatisticsUpdater m_pressureStatistic;
+	std::ostream& m_output;
 };
 
 class CWeatherData : public CObservable<SWeatherInfo>
@@ -130,13 +143,16 @@ private:
 class CObserverWhoRemovesItself : public IObserver<SWeatherInfo>
 {
 public:
-	CObserverWhoRemovesItself(IObservable<SWeatherInfo>& observable)
+	CObserverWhoRemovesItself(IObservable<SWeatherInfo>& observable, std::ostream& output)
 		: m_observable(observable)
+		, m_output(output)
 	{
 	}
 private:
 	void Update(SWeatherInfo const& data) override
 	{
+		m_output << "CObserverWhoRemovesItself\n";
+
 		std::cout << "Display Current Temp and then delete itself " << data.temperature << std::endl;
 		std::cout << "Display Current Hum and then delete itself " << data.humidity << std::endl;
 		std::cout << "Display Current Pressure and then delete itself " << data.pressure << std::endl;
@@ -145,4 +161,5 @@ private:
 	}
 
 	IObservable<SWeatherInfo>& m_observable;
+	std::ostream& m_output;
 };
