@@ -126,3 +126,23 @@ private:
 	double m_humidity = 0.0;
 	double m_pressure = 760.0;
 };
+
+class CObserverWhoRemovesItself : public IObserver<SWeatherInfo>
+{
+public:
+	CObserverWhoRemovesItself(IObservable<SWeatherInfo>& observable)
+		: m_observable(observable)
+	{
+	}
+private:
+	void Update(SWeatherInfo const& data) override
+	{
+		std::cout << "Display Current Temp and then delete itself " << data.temperature << std::endl;
+		std::cout << "Display Current Hum and then delete itself " << data.humidity << std::endl;
+		std::cout << "Display Current Pressure and then delete itself " << data.pressure << std::endl;
+		std::cout << "----------------" << std::endl;
+		m_observable.RemoveObserver(*this);
+	}
+
+	IObservable<SWeatherInfo>& m_observable;
+};

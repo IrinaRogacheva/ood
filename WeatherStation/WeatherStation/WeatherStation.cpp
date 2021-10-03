@@ -6,7 +6,10 @@ int main()
 
 	CDisplay display;
 	wd.RegisterObserver(display);
-
+	
+	CObserverWhoRemovesItself observerWhoRemovesItself(wd);
+	wd.RegisterObserver(observerWhoRemovesItself);
+	
 	CStatsDisplay statsDisplay;
 	wd.RegisterObserver(statsDisplay);
 
