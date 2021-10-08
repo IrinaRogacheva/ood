@@ -10,7 +10,7 @@ int main()
 	wd.RegisterObserver(display, 3);
 	
 	CObserverWhoRemovesItself observerWhoRemovesItself(wd, output);
-	wd.RegisterObserver(observerWhoRemovesItself, 2);
+	wd.RegisterObserver(observerWhoRemovesItself, 3);
 	
 	CStatsDisplay statsDisplay(output);
 	wd.RegisterObserver(statsDisplay, 1);

@@ -4,10 +4,13 @@
 #include <functional>
 
 template <typename T>
+class IObservable;
+
+template <typename T>
 class IObserver
 {
 public:
-	virtual void Update(T const& data) = 0;
+	virtual void Update(T const& data, IObservable<T> const& observable) = 0;
 	virtual ~IObserver() = default;
 };
 
@@ -38,7 +41,7 @@ public:
 		auto copyObservers = m_observers;
 		for (auto& item : copyObservers)
 		{
-			item.second->Update(data);
+			item.second->Update(data, *this);
 		}
 	}
 
@@ -58,5 +61,5 @@ protected:
 	virtual T GetChangedData()const = 0;
 
 private:
-	std::multimap<int, ObserverType*> m_observers;
+	std::map<int, ObserverType*> m_observers;
 };
