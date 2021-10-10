@@ -8,9 +8,14 @@ using namespace std;
 
 typedef std::function<void()> Strategy;
 
-void FlyWithWings() 
-{ 
-    cout << "I'm flying with wings!!" << endl; 
+Strategy FlyWithWings()
+{
+    int numberOfFlights = 0;
+    return [numberOfFlights]() mutable
+    {
+        ++numberOfFlights;
+        cout << "I'm flying with wings!!\nNumber of my flights: " << numberOfFlights << endl;
+    };
 }
 
 void FlyNoWay()
@@ -70,11 +75,11 @@ public:
     { 
         cout << "I'm swimming" << endl; 
     }
-    void Fly() const
+    void Fly()// const
     { 
         m_flyBehavior();
     }
-    void Dance() const
+    void Dance()// const
     { 
         m_danceBehavior(); 
     }
@@ -94,7 +99,7 @@ private:
 class MallardDuck : public Duck {
 public:
     MallardDuck()
-        : Duck(FlyWithWings, MakeQuack, DanceWaltz)
+        : Duck(FlyWithWings(), MakeQuack, DanceWaltz)
     {
     }
 
@@ -107,7 +112,7 @@ public:
 class RedheadDuck : public Duck {
 public:
     RedheadDuck()
-        : Duck(FlyWithWings, MakeQuack, DanceMinuet)
+        : Duck(FlyWithWings(), MakeQuack, DanceMinuet)
     {
     }
     void Display() const override 
@@ -166,6 +171,16 @@ int main()
 {
     MallardDuck mallardDuck;
     PlayWithDuck(mallardDuck);
+    mallardDuck.Fly();
+    mallardDuck.Fly();
+    mallardDuck.Fly();
+    cout << "Change of fly strategy" << endl;
+    mallardDuck.SetFlyBehavior(FlyNoWay);
+    mallardDuck.SetFlyBehavior(FlyWithWings);
+    mallardDuck.Fly();
+    mallardDuck.Fly();
+    mallardDuck.Fly();
+    cout << endl;
 
     RedheadDuck redheadDuck;
     PlayWithDuck(redheadDuck);
@@ -178,6 +193,6 @@ int main()
 
     ModelDuck modelDuck;
     PlayWithDuck(modelDuck);
-    modelDuck.SetFlyBehavior(FlyWithWings);
+    modelDuck.SetFlyBehavior(FlyWithWings());
     PlayWithDuck(modelDuck);
 }
