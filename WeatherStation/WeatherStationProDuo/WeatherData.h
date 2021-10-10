@@ -8,14 +8,7 @@
 #include <math.h> 
 #include <cmath> 
 
-struct SInsideWeatherInfo
-{
-	double temperature = 0;
-	double humidity = 0;
-	double pressure = 0;
-};
-
-struct SOutsideWeatherInfo
+struct SWeatherInfo
 {
 	double temperature = 0;
 	double humidity = 0;
@@ -24,7 +17,7 @@ struct SOutsideWeatherInfo
 	int windDirection = 0;
 };
 
-class CDisplay : public IObserver<SInsideWeatherInfo, SOutsideWeatherInfo>
+class CDisplay : public IObserver<SWeatherInfo>
 {
 public:
 	CDisplay(const IObservable<SWeatherInfo>& observableOut)
@@ -136,7 +129,7 @@ private:
 	const IObservable<SWeatherInfo>& m_observableOut;
 };
 
-class CInsideWeatherData : public CObservable<SInsideWeatherInfo>
+class CInsideWeatherData : public CObservable<SWeatherInfo>
 {
 public:
 	double GetTemperature()const
@@ -168,9 +161,9 @@ public:
 		MeasurementsChanged();
 	}
 protected:
-	SInsideWeatherInfo GetChangedData()const override
+	SWeatherInfo GetChangedData()const override
 	{
-		SInsideWeatherInfo info;
+		SWeatherInfo info;
 		info.temperature = GetTemperature();
 		info.humidity = GetHumidity();
 		info.pressure = GetPressure();
@@ -182,7 +175,7 @@ private:
 	double m_pressure = 760.0;
 };
 
-class COutsideWeatherData : public CObservable<SOutsideWeatherInfo>
+class COutsideWeatherData : public CObservable<SWeatherInfo>
 {
 public:
 	double GetTemperature()const
@@ -226,9 +219,9 @@ public:
 		MeasurementsChanged();
 	}
 protected:
-	SOutsideWeatherInfo GetChangedData()const override
+	SWeatherInfo GetChangedData()const override
 	{
-		SOutsideWeatherInfo info;
+		SWeatherInfo info;
 		info.temperature = GetTemperature();
 		info.humidity = GetHumidity();
 		info.pressure = GetPressure();

@@ -6,18 +6,26 @@ int main()
 	CInsideWeatherData inWd;
 	COutsideWeatherData outWd;
 
-	CDisplay display(outWd);
-	inWd.RegisterObserver(display, 3);
-	outWd.RegisterObserver(display, 3);
+	CDisplay inDisplay(inWd);
+	inWd.RegisterObserver(inDisplay, 3);
+	outWd.RegisterObserver(inDisplay, 3);
 
-	CStatsDisplay statsDisplay(outWd);
-	inWd.RegisterObserver(statsDisplay, 1);
-	outWd.RegisterObserver(statsDisplay, 1);
+	CDisplay outDisplay(outWd);
+	inWd.RegisterObserver(outDisplay, 3);
+	outWd.RegisterObserver(outDisplay, 3);
 
-	inWd.SetMeasurements(3, 0.7, 760, 6, 90);
+	CStatsDisplay inStatsDisplay(inWd);
+	inWd.RegisterObserver(inStatsDisplay, 1);
+	outWd.RegisterObserver(inStatsDisplay, 1);
+
+	CStatsDisplay outStatsDisplay(outWd);
+	inWd.RegisterObserver(outStatsDisplay, 1);
+	outWd.RegisterObserver(outStatsDisplay, 1);
+
+	inWd.SetMeasurements(3, 0.7, 760);
 	outWd.SetMeasurements(4, 0.8, 761, 10, 45);
 
-	inWd.SetMeasurements(10, 0.8, 761, 5, 120);
+	inWd.SetMeasurements(10, 0.8, 761);
 	outWd.SetMeasurements(-10, 0.8, 761, 11, 270);
 	return 0;
 }
