@@ -90,6 +90,11 @@ void DialogWithUser()
 	cout << beverage->GetDescription() << ", cost: " << beverage->GetCost() << endl;
 }
 
+void WriteCost(const IBeverage& beverage)
+{
+	cout << beverage.GetDescription() << " costs " << beverage.GetCost() << endl;
+}
+
 int main()
 {
 	auto latte = make_unique<CLatte>(CoffeeServingSize::Double);
@@ -107,8 +112,8 @@ int main()
 
 	auto milkshake = make_unique<CMilkshake>(MilkshakeServingSize::Small);
 
-	cout << beverage->GetDescription() << " costs " << beverage->GetCost() << endl;
-	cout << cappuccino->GetDescription() << " costs " << cappuccino->GetCost() << endl;
-	cout << tea->GetDescription() << " costs " << tea->GetCost() << endl;
-	cout << milkshake->GetDescription() << " costs " << milkshake->GetCost() << endl;
+	WriteCost(*beverage);
+	WriteCost(*cappuccino);
+	WriteCost(*tea);
+	WriteCost(*milkshake);
 }
