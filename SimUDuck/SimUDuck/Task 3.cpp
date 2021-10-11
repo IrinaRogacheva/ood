@@ -11,7 +11,7 @@ typedef std::function<void()> Strategy;
 Strategy FlyWithWings()
 {
     int numberOfFlights = 0;
-    return [numberOfFlights]() mutable
+    return [=]() mutable
     {
         ++numberOfFlights;
         cout << "I'm flying with wings!!\nNumber of my flights: " << numberOfFlights << endl;
@@ -75,11 +75,11 @@ public:
     { 
         cout << "I'm swimming" << endl; 
     }
-    void Fly()// const
+    void Fly()
     { 
         m_flyBehavior();
     }
-    void Dance()// const
+    void Dance()
     { 
         m_danceBehavior(); 
     }
