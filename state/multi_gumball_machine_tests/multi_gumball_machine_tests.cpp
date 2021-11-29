@@ -198,9 +198,9 @@ SCENARIO("testing the gumball machine in 'has quarter' state")
                     {
                         m.FillUp(3);
 
-                        THEN("the gumball machine switched to the state 'has quarter'")
+                        THEN("the gumball machine is filled up and it switched to the state 'has quarter'")
                         {
-                            REQUIRE(m.ToString() == ToString(3, 0, &hasQuarterState));
+                            REQUIRE(m.ToString() == ToString(3, 2, &hasQuarterState));
                         }
                     }
 
