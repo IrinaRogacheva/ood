@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h" />
+    <ClInclude Include="app_with_class_adapter.h" />
     <ClInclude Include="graphics_lib.h" />
     <ClInclude Include="modern_graphics_lib.h" />
     <ClInclude Include="shape_drawing_lib.h" />
