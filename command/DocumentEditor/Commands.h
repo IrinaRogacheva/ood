@@ -11,13 +11,13 @@ public:
 		, m_item(std::move(item))
 		, m_position(position)
 	{
-		if (position > items.size() || position < 0)
+		if (position > items.size())
 		{
 			throw std::invalid_argument("Wrong position argument");
 		}
 	}
 
-	CInsertDocumentItem::~CInsertDocumentItem()
+	~CInsertDocumentItem()
 	{
 		if (!IsExecuted() && m_item->GetImage())
 		{

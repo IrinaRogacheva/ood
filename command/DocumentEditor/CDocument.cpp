@@ -36,11 +36,19 @@ size_t CDocument::GetItemsCount() const
 
 CConstDocumentItem CDocument::GetItem(size_t index) const
 {
+	if (index >= m_items.size())
+	{
+		throw std::invalid_argument("Wrong position argument");
+	}
 	return *m_items.at(index);
 }
 
 CDocumentItem CDocument::GetItem(size_t index)
 {
+	if (index >= m_items.size())
+	{
+		throw std::invalid_argument("Wrong position argument");
+	}
 	return *m_items.at(index);
 }
 

@@ -11,6 +11,8 @@
 class CMenu
 {
 public:
+	CMenu(std::istream& istream, std::ostream& ostream);
+
 	typedef std::function<void()> CommandCaller;
 
 	void AddItem(const std::string& shortcut, const std::string& description, CommandCaller const& commandCaller);
@@ -37,4 +39,6 @@ private:
 	};
 	std::vector<Item> m_items;
 	bool m_exit = false;
+	std::istream& m_istream;
+	std::ostream& m_ostream;
 };

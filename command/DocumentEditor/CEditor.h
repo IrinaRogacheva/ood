@@ -31,21 +31,20 @@ private:
 	void Save();
 	void SetTitle();
 
-	//добавить const
-	void List();
-	void Help();
+	void List() const;
+	void Help() const;
 	void Undo();
 	void Redo();
 
 	void Exit();
 
 	ParagraphInfo GetParagraphInfo();
-	ImageInfo CEditor::GetImageInfo();
-	ParagraphInfo CEditor::GetReplaceTextInfo();
+	ImageInfo GetImageInfo();
+	ParagraphInfo GetReplaceTextInfo();
 
 	size_t GetPosition(std::istringstream& in);
 
-	std::string EncodeSpecialCharacters(std::string& str) const;
+	std::string EncodeSpecialCharacters(std::string str) const;
 
 	const std::string IMG_DIRECTORY_NAME = "images/";
 

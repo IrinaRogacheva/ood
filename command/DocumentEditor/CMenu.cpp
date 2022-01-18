@@ -1,5 +1,11 @@
 #include "CMenu.h"
 
+CMenu::CMenu(std::istream& istream, std::ostream& ostream)
+	: m_istream(istream)
+	, m_ostream(ostream)
+{
+}
+
 void CMenu::AddItem(const std::string& shortcut, const std::string& description, CommandCaller const& commandCaller)
 {
 	m_items.emplace_back(shortcut, description, commandCaller);
@@ -10,8 +16,8 @@ void CMenu::Run()
 	ShowInstructions();
 
 	std::string command;
-	while ((std::cout << ">")
-		&& (std::cin >> command)
+	while ((m_ostream << ">")
+		&& (m_istream >> command)
 		&& ExecuteCommand(command))
 	{
 	}
@@ -19,10 +25,10 @@ void CMenu::Run()
 
 void CMenu::ShowInstructions()const
 {
-	std::cout << "Commands list:\n";
+	m_ostream << "Commands list:\n";
 	for (auto& item : m_items)
 	{
-		std::cout << "  " << item.shortcut << ": " << item.description << "\n";
+		m_ostream << "  " << item.shortcut << ": " << item.description << "\n";
 	}
 }
 
@@ -44,7 +50,7 @@ bool CMenu::ExecuteCommand(const std::string& command)
 	}
 	else
 	{
-		std::cout << "Unknown command\n";
+		m_ostream << "Unknown command\n";
 	}
 
 	return !m_exit;

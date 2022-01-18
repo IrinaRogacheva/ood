@@ -8,7 +8,7 @@
 using namespace std::placeholders;
 
 CEditor::CEditor(std::istream& in, std::ostream& out)
-	: m_menu()
+	: m_menu(std::cin, std::cout)
 	, m_document(std::make_unique<CDocument>())
 	, m_in(in)
 	, m_out(out)
@@ -186,7 +186,7 @@ void CEditor::SetTitle()
 	}
 }
 
-void CEditor::List()
+void CEditor::List() const
 {
 	std::cout << "Title: " << m_document->GetTitle() << "\n";
 
@@ -207,7 +207,7 @@ void CEditor::List()
 	}
 }
 
-void CEditor::Help()
+void CEditor::Help() const
 {
 	m_menu.ShowInstructions();
 }
@@ -309,7 +309,7 @@ size_t CEditor::GetPosition(std::istringstream& in)
 	}
 }
 
-std::string CEditor::EncodeSpecialCharacters(std::string& str) const
+std::string CEditor::EncodeSpecialCharacters(std::string str) const
 {
 	std::map<std::string, std::string> escapeChars = {
 		{ "<", "&lt;" },
