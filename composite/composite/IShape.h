@@ -14,11 +14,9 @@ public:
 
 	virtual const std::shared_ptr<ILineStyle> GetOutlineStyle() = 0;
 	virtual std::shared_ptr<const ILineStyle> GetOutlineStyle() const = 0;
-	virtual void SetOutlineStyle(std::shared_ptr<ILineStyle> style) = 0;
 
 	virtual const std::shared_ptr<IStyle> GetFillStyle() = 0;
 	virtual std::shared_ptr<const IStyle> GetFillStyle() const = 0;
-	virtual void SetFillStyle(std::shared_ptr<IStyle> style) = 0;
 
 	virtual std::shared_ptr<IGroup> GetGroup() = 0;
 	virtual std::shared_ptr<const IGroup> GetGroup() const = 0;

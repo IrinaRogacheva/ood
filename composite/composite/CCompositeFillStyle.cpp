@@ -1,8 +1,7 @@
 #include "CCompositeFillStyle.h"
 
 CCompositeFillStyle::CCompositeFillStyle(CFillStyleEnumerator fillStyleEnumerator)
-	: m_isEnable(false)
-	, m_fillStyleEnumerator(fillStyleEnumerator)
+	: m_fillStyleEnumerator(fillStyleEnumerator)
 {
 }
 

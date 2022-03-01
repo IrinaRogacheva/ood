@@ -1,9 +1,7 @@
 #include "CCompositeLineStyle.h"
 
 CCompositeLineStyle::CCompositeLineStyle(CLineStyleEnumerator lineStyleEnumerator)
-	: m_isEnable(false)
-	, m_lineStyleEnumerator(lineStyleEnumerator)
-	, m_thickness(1)
+	: m_lineStyleEnumerator(lineStyleEnumerator)
 {
 }
 

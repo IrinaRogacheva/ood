@@ -2,7 +2,7 @@
 
 CSimpleLineStyle::CSimpleLineStyle()
 	: m_isEnable(false)
-	, m_color(0)
+	, m_color(0x000000)
 	, m_thickness(1)
 {
 }

@@ -157,7 +157,7 @@ SCENARIO("not empty group")
 
 		AND_WHEN("get color from outlineStyle")
 		{
-			THEN("color is nullopt")
+			THEN("color is 0x000000")
 			{
 				REQUIRE(group.GetOutlineStyle()->GetColor() == 0x000000);
 			}
@@ -165,13 +165,13 @@ SCENARIO("not empty group")
 
 		AND_WHEN("get color from fillStyle")
 		{
-			THEN("color is nullopt")
+			THEN("color is 0xffffff")
 			{
 				REQUIRE(group.GetFillStyle()->GetColor() == 0xffffff);
 			}
 		}
 
-		AND_WHEN("change color of one shape")
+		AND_WHEN("change fill color of one shape")
 		{
 			group.GetShapeAtIndex(0)->GetFillStyle()->SetColor(0xaabbcc);
 
@@ -181,13 +181,33 @@ SCENARIO("not empty group")
 			}
 		}
 
-		AND_WHEN("change color of all group")
+		AND_WHEN("change fill color of all group")
 		{
 			group.GetFillStyle()->SetColor(0xaabbcc);
 
 			THEN("color of group should be 0xaabbcc")
 			{
 				REQUIRE(group.GetFillStyle()->GetColor() == 0xaabbcc);
+			}
+		}
+
+		AND_WHEN("change outline color of one shape")
+		{
+			group.GetShapeAtIndex(0)->GetOutlineStyle()->SetColor(0xaabbcc);
+
+			THEN("color of group should be nullopt")
+			{
+				REQUIRE(group.GetOutlineStyle()->GetColor() == std::nullopt);
+			}
+		}
+
+		AND_WHEN("change outline color of all group")
+		{
+			group.GetOutlineStyle()->SetColor(0xaabbcc);
+
+			THEN("color of group should be 0xaabbcc")
+			{
+				REQUIRE(group.GetOutlineStyle()->GetColor() == 0xaabbcc);
 			}
 		}
 	}

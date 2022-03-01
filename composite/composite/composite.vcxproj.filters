@@ -77,9 +77,6 @@
     <ClInclude Include="IGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CSimpleShape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>

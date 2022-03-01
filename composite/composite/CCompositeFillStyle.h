@@ -14,5 +14,4 @@ public:
 	void SetColor(const RGBAColor color) override;
 private:
 	CFillStyleEnumerator m_fillStyleEnumerator;
-	bool m_isEnable;
 };

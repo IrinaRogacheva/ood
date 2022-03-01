@@ -13,11 +13,9 @@ public:
 	CShape();
 	const std::shared_ptr<ILineStyle> GetOutlineStyle() override;
 	std::shared_ptr<const ILineStyle> GetOutlineStyle() const override;
-	void SetOutlineStyle(std::shared_ptr<ILineStyle> style) override;
 
 	const std::shared_ptr<IStyle> GetFillStyle() override;
 	std::shared_ptr<const IStyle> GetFillStyle() const override;
-	void SetFillStyle(std::shared_ptr<IStyle> style) override;
 
 	std::shared_ptr<IGroup> GetGroup() override;
 	std::shared_ptr<const IGroup> GetGroup() const override;

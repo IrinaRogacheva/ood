@@ -16,6 +16,4 @@ public:
 	void SetThickness(int thickness) override;
 private:
 	CLineStyleEnumerator m_lineStyleEnumerator;
-	bool m_isEnable;
-	int m_thickness;
 };

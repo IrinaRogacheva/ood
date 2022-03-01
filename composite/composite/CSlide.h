@@ -18,7 +18,7 @@ public:
 	void Draw(ICanvas& canvas) const override;
 private:
 	std::vector<std::shared_ptr<IShape>> m_shapes;
-	RGBAColor m_backgroundColor = 0xFFFFFF;
+	RGBAColor m_backgroundColor = 0xffffff;
 	double m_width = 800;
 	double m_height = 600;
 };

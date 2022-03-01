@@ -5,10 +5,10 @@
 CGroup::CGroup()
 {
 	CLineStyleEnumerator lineStyleEnumerator(m_shapes);
-	m_compositeLineStyle = std::make_shared<CCompositeLineStyle>(lineStyleEnumerator);
+	m_compositeLineStyle = std::make_shared<CCompositeLineStyle>(CLineStyleEnumerator(lineStyleEnumerator));
 
 	CFillStyleEnumerator fillStyleEnumerator(m_shapes);
-	m_compositeFillStyle = std::make_shared<CCompositeFillStyle>(fillStyleEnumerator);
+	m_compositeFillStyle = std::make_shared<CCompositeFillStyle>(CFillStyleEnumerator (fillStyleEnumerator));
 }
 
 std::optional<RectD> CGroup::GetFrame() const
@@ -64,17 +64,17 @@ void CGroup::SetFrame(const RectD& rect)
 	RectD previousGroupFrame = *GetFrame();
 	RectD previousConcreteShapeFrame;
 	double left, top, width, height;
-	for (size_t i = 0; i < GetShapesCount(); i++)
+	for (const auto& shape : m_shapes)
 	{
-		if (m_shapes[i]->GetFrame())
+		if (shape->GetFrame())
 		{
-			previousConcreteShapeFrame = *m_shapes[i]->GetFrame();
+			previousConcreteShapeFrame = *shape->GetFrame();
 			left = rect.left - (previousGroupFrame.left - previousConcreteShapeFrame.left) * rect.width / previousGroupFrame.width;
 			top = rect.top - (previousGroupFrame.top - previousConcreteShapeFrame.top) * rect.height / previousGroupFrame.height;
 			width = previousConcreteShapeFrame.width * rect.width / previousGroupFrame.width;
 			height = previousConcreteShapeFrame.height * rect.height / previousGroupFrame.height;
 
-			m_shapes[i]->SetFrame({ left, top, width, height });
+			shape->SetFrame({ left, top, width, height });
 		}
 	}
 }
@@ -89,11 +89,6 @@ std::shared_ptr<const ILineStyle> CGroup::GetOutlineStyle() const
 	return m_compositeLineStyle;
 }
 
-void CGroup::SetOutlineStyle(std::shared_ptr<ILineStyle> style)
-{
-	m_compositeLineStyle = style;
-}
-
 const std::shared_ptr<IStyle> CGroup::GetFillStyle()
 {
 	return m_compositeFillStyle;
@@ -102,11 +97,6 @@ const std::shared_ptr<IStyle> CGroup::GetFillStyle()
 std::shared_ptr<const IStyle> CGroup::GetFillStyle() const
 {
 	return m_compositeFillStyle;
-}
-
-void CGroup::SetFillStyle(std::shared_ptr<IStyle> style)
-{
-	m_compositeFillStyle = style;
 }
 
 void CGroup::Draw(ICanvas& canvas) const
