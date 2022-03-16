@@ -5,7 +5,7 @@
 #include <memory>
 #include "HarmonicsListView.h"
 #include "UpdateHarmonicView.h"
-#include "ChartsView.h"
+#include "TabWindow.h"
 #include "wx/wx.h"
 
 class CApp : public wxApp
@@ -16,5 +16,5 @@ private:
 	wxFrame* m_frame;
 	CHarmonicsListView* m_harmonicsListView;
 	CUpdateHarmonicView* m_updateHarmonicView;
-	CChartsView* m_chartsView;
+	CTabWindow* m_tabWindow;
 };

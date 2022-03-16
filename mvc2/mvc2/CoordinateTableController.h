@@ -2,17 +2,17 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #include "HarmonicsList.h"
-class CChartsView;
-#include "ChartsView.h"
+class CCoordinateTableView;
+#include "CoordinateTableView.h"
 
-class CChartsController
+class CCoordinateTableController
 {
 public:
-	CChartsController(std::shared_ptr<CHarmonicsList> model, CChartsView& view);
+	CCoordinateTableController(std::shared_ptr<CHarmonicsList> model, CCoordinateTableView& view);
 	std::shared_ptr<CHarmonic> GetCurrentHarmonic() const;
 	GraphPoints GetGraphPoints() const;
 	size_t GetHarmonicsCount() const;
 private:
 	std::shared_ptr<CHarmonicsList> m_model;
-	CChartsView& m_view;
+	CCoordinateTableView& m_view;
 };

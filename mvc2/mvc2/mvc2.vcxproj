@@ -22,9 +22,12 @@
     <ClInclude Include="AddHarmonicController.h" />
     <ClInclude Include="AddHarmonicView.h" />
     <ClInclude Include="App.h" />
+    <ClInclude Include="CoordinateTableController.h" />
+    <ClInclude Include="GraphPoints.h" />
     <ClInclude Include="ChartsController.h" />
     <ClInclude Include="ChartsView.h" />
     <ClInclude Include="ConvertUtils.h" />
+    <ClInclude Include="CoordinateTableView.h" />
     <ClInclude Include="Harmonic.h" />
     <ClInclude Include="HarmonicFunctionType.h" />
     <ClInclude Include="HarmonicsList.h" />
@@ -32,6 +35,7 @@
     <ClInclude Include="HarmonicsListView.h" />
     <ClInclude Include="mathplot.h" />
     <ClInclude Include="Signals.h" />
+    <ClInclude Include="TabWindow.h" />
     <ClInclude Include="UpdateHarmonicController.h" />
     <ClInclude Include="UpdateHarmonicView.h" />
   </ItemGroup>
@@ -42,11 +46,14 @@
     <ClCompile Include="ChartsController.cpp" />
     <ClCompile Include="ChartsView.cpp" />
     <ClCompile Include="ConvertUtils.cpp" />
+    <ClCompile Include="CoordinateTableController.cpp" />
+    <ClCompile Include="CoordinateTableView.cpp" />
     <ClCompile Include="Harmonic.cpp" />
     <ClCompile Include="HarmonicsList.cpp" />
     <ClCompile Include="HarmonicsListController.cpp" />
     <ClCompile Include="HarmonicsListView.cpp" />
     <ClCompile Include="mathplot.cpp" />
+    <ClCompile Include="TabWindow.cpp" />
     <ClCompile Include="UpdateHarmonicController.cpp" />
     <ClCompile Include="UpdateHarmonicView.cpp" />
   </ItemGroup>
@@ -91,19 +98,15 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\..\..\..\sdks\wx315\wxwidgets.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\..\..\..\sdks\wx315\wxwidgets.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\..\..\..\sdks\wx315\wxwidgets.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\..\..\..\sdks\wx315\wxwidgets.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

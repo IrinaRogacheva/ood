@@ -10,3 +10,8 @@ std::shared_ptr<CHarmonic> CUpdateHarmonicController::GetCurrentHarmonic()
 {
 	return m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex());
 }
+
+size_t CUpdateHarmonicController::GetHarmonicsCount() const
+{
+	return m_model->GetHarmonicsCount();
+}

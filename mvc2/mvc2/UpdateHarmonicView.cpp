@@ -2,7 +2,7 @@
 #include "ConvertUtils.h"
 
 CUpdateHarmonicView::CUpdateHarmonicView(wxWindow* parent, std::shared_ptr<CHarmonicsList> model)
-    : wxPanel(parent, wxID_ANY, wxPoint(250, 20), wxSize(210, 145), wxBORDER_SIMPLE)
+    : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(210, 145), wxBORDER_SIMPLE)
 {
     SetBackgroundColour(*wxWHITE);
 
@@ -27,8 +27,12 @@ CUpdateHarmonicView::CUpdateHarmonicView(wxWindow* parent, std::shared_ptr<CHarm
     m_phase = new wxTextCtrl(this, wxID_ANY, wxString("0"), wxPoint(110, 110), wxSize(80, 20), 0, wxTextValidator(wxFILTER_NUMERIC, str));
     m_phase->Bind(wxEVT_TEXT, &CUpdateHarmonicView::OnPhaseChange, this);
 
-    m_currentHarmonicIndexChanged = model->DoOnCurrentIndexChanged([=] {
+    m_currentHarmonicIndexConnection = model->DoOnCurrentIndexChanged([=] {
         UpdateCurrentHarmonic();
+    });
+
+    m_deleteHarmonicConnection = model->DoOnHarmonicDeleted([=] {
+        ResetFields();
     });
 
     delete str;
@@ -48,6 +52,15 @@ void CUpdateHarmonicView::UpdateCurrentHarmonic()
     {
         m_cos->SetValue(true);
     }
+}
+
+void CUpdateHarmonicView::ResetFields()
+{
+    m_amplitude->SetValue("");
+    m_frequency->SetValue("");
+    m_phase->SetValue("");
+    m_sin->SetValue(false);
+    m_cos->SetValue(false);
 }
 
 void CUpdateHarmonicView::OnAmplitudeChange(wxCommandEvent& event)

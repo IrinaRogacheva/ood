@@ -24,6 +24,8 @@ private:
     void OnCosChoose(wxCommandEvent& event);
     void OnFrequencyChange(wxCommandEvent& event);
     void OnPhaseChange(wxCommandEvent& event);
+    void ResetFields();
     
-    sig::scoped_connection m_currentHarmonicIndexChanged;
+    sig::scoped_connection m_currentHarmonicIndexConnection;
+    sig::scoped_connection m_deleteHarmonicConnection;
 };

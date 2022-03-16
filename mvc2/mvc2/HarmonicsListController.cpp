@@ -30,3 +30,8 @@ std::shared_ptr<CHarmonic> CHarmonicsListController::GetLastHarmonic() const
 {
 	return m_model->GetHarmonicAtIndex(m_model->GetHarmonicsCount() - 1);
 }
+
+size_t CHarmonicsListController::GetHarmonicsCount() const
+{
+	return m_model->GetHarmonicsCount();
+}

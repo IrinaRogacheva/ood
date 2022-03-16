@@ -58,19 +58,14 @@ void CHarmonicsList::DeleteHarmonic(size_t index)
 		m_harmonicDeleted();
 		SetCurrentIndex(0);
 	}
-	else if (GetHarmonicsCount() == 1)
-	{
-		m_harmonics[0]->SetAmplitude(1);
-		m_harmonics[0]->SetFunctionType(HarmonicFunctionType::SIN);
-		m_harmonics[0]->SetFrequency(1);
-		m_harmonics[0]->SetPhase(1);
-		SetCurrentIndex(0);
-	}
 	else
 	{
 		m_harmonics.erase(m_harmonics.begin() + index);
 		m_harmonicDeleted();
-		SetCurrentIndex(index - 1);
+		if (index > 0)
+		{
+			SetCurrentIndex(index - 1);
+		}
 	}
 }
 
@@ -83,4 +78,28 @@ void CHarmonicsList::SetCurrentIndex(size_t index)
 {
 	m_currentIndex = index;
 	m_currentIndexChanged();
+}
+
+GraphPoints CHarmonicsList::CalculateGraphPoints() const
+{
+	GraphPoints points;
+	double n = -10;
+	for (size_t i = 0; i <= 200; i++)
+	{
+		points.x.push_back(n);
+		points.y.push_back(0);
+		for (auto const harmonic : m_harmonics)
+		{
+			if (harmonic->GetFunctionType() == HarmonicFunctionType::SIN)
+			{
+				points.y[i] += harmonic->GetAmplitude() * sin(harmonic->GetFrequency() * n + harmonic->GetPhase());
+			}
+			else
+			{
+				points.y[i] += harmonic->GetAmplitude() * cos(harmonic->GetFrequency() * n + harmonic->GetPhase());
+			}
+		}
+		n += 0.1;
+	}
+	return points;
 }

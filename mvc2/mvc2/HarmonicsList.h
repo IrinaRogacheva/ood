@@ -3,6 +3,7 @@
 #include <memory>
 #include "Harmonic.h"
 #include <vector>
+#include "GraphPoints.h"
 
 class CHarmonicsList
 {
@@ -21,9 +22,10 @@ public:
 	void DeleteHarmonic(size_t index);
 	size_t GetCurrentIndex() const;
 	void SetCurrentIndex(size_t index);
+	GraphPoints CalculateGraphPoints() const;
 private:
 	size_t m_currentIndex = 0;
-	std::vector<std::shared_ptr<CHarmonic>> m_harmonics{};
+	std::vector<std::shared_ptr<CHarmonic>> m_harmonics;
 	HarmonicsChangeSignal m_harmonicAdded;
 	HarmonicsChangeSignal m_harmonicDeleted;
 	HarmonicsChangeSignal m_currentIndexChanged;

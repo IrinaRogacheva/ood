@@ -3,7 +3,7 @@
 #include "ConvertUtils.h"
 
 CHarmonicsListView::CHarmonicsListView(wxWindow* parent, std::shared_ptr<CHarmonicsList> model)
-	: wxPanel(parent, wxID_ANY, wxPoint(20, 10), wxSize(190, 155))
+	: wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(190, 155))
 {
 	m_controller = std::make_unique<CHarmonicsListController>(model, *this);
 
@@ -57,7 +57,7 @@ void CHarmonicsListView::AddHarmonic(std::shared_ptr<CHarmonic> harmonic)
 }
 
 void CHarmonicsListView::DeleteHarmonic(size_t index)
-{
+{		
 	m_harmonicsList->Delete(index);
 }
 
@@ -80,6 +80,13 @@ void CHarmonicsListView::OnAddHarmonicButtonClick(wxCommandEvent& event)
 
 void CHarmonicsListView::OnDeleteHarmonicButtonClick(wxCommandEvent& event)
 {
-	m_controller->DeleteHarmonic(m_harmonicsList->GetSelection());
+	if (m_controller->GetHarmonicsCount() > 0)
+	{
+		m_controller->DeleteHarmonic(m_harmonicsList->GetSelection());
+	}
+	else
+	{
+		wxMessageBox(wxT("There is no garmonics to delete"), wxT("Add harmonic at first"), wxICON_INFORMATION);
+	}
 }
 

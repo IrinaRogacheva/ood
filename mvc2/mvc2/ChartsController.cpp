@@ -11,7 +11,12 @@ std::shared_ptr<CHarmonic> CChartsController::GetCurrentHarmonic() const
 	return m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex());
 }
 
-size_t CChartsController::GetCurrentIndex() const
+GraphPoints CChartsController::GetGraphPoints() const
 {
-	return m_model->GetCurrentIndex();
+	return m_model->CalculateGraphPoints();
+}
+
+size_t CChartsController::GetHarmonicsCount() const
+{
+	return m_model->GetHarmonicsCount();
 }
