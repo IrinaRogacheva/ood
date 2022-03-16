@@ -16,22 +16,3 @@ void CHarmonicsListController::SetCurrentIndex(size_t index)
 	m_model->SetCurrentIndex(index);
 }
 
-size_t CHarmonicsListController::GetCurrentIndex() const
-{
-	return m_model->GetCurrentIndex();
-}
-
-std::shared_ptr<CHarmonic> CHarmonicsListController::GetCurrentHarmonic() const
-{
-	return m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex());
-}
-
-std::shared_ptr<CHarmonic> CHarmonicsListController::GetLastHarmonic() const
-{
-	return m_model->GetHarmonicAtIndex(m_model->GetHarmonicsCount() - 1);
-}
-
-size_t CHarmonicsListController::GetHarmonicsCount() const
-{
-	return m_model->GetHarmonicsCount();
-}

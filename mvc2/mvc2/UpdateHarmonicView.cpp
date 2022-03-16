@@ -3,11 +3,10 @@
 
 CUpdateHarmonicView::CUpdateHarmonicView(wxWindow* parent, std::shared_ptr<CHarmonicsList> model)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(210, 145), wxBORDER_SIMPLE)
+    , m_model(model)
 {
     SetBackgroundColour(*wxWHITE);
 
-    m_controller = std::make_unique<CUpdateHarmonicController>(model, *this);
-    
     wxString* str = new wxString("");
     m_amplitudeLabel = new wxStaticText(this, wxID_ANY, wxString("Amplitude:"), wxPoint(10, 12));
     m_amplitude = new wxTextCtrl(this, wxID_ANY, wxString("1"), wxPoint(110, 10), wxSize(80, 20), 0, wxTextValidator(wxFILTER_NUMERIC, str));
@@ -40,7 +39,7 @@ CUpdateHarmonicView::CUpdateHarmonicView(wxWindow* parent, std::shared_ptr<CHarm
 
 void CUpdateHarmonicView::UpdateCurrentHarmonic()
 {
-    std::shared_ptr<CHarmonic> harmonic = m_controller->GetCurrentHarmonic();
+    std::shared_ptr<CHarmonic> harmonic = m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex());
     m_amplitude->SetValue(ConvertDoubleToString(harmonic->GetAmplitude()));
     m_frequency->SetValue(ConvertDoubleToString(harmonic->GetFrequency()));
     m_phase->SetValue(ConvertDoubleToString(harmonic->GetPhase()));
@@ -67,7 +66,7 @@ void CUpdateHarmonicView::OnAmplitudeChange(wxCommandEvent& event)
 {
     if (m_amplitude->GetValue() != "" && m_amplitude->Validate())
     {
-        m_controller->GetCurrentHarmonic()->SetAmplitude(ConvertWxStringToDouble(m_amplitude->GetValue()));
+        m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->SetAmplitude(ConvertWxStringToDouble(m_amplitude->GetValue()));
     }
 }
 
@@ -75,7 +74,7 @@ void CUpdateHarmonicView::OnSinChoose(wxCommandEvent& event)
 {
     if (m_sin->GetValue())
     {
-        m_controller->GetCurrentHarmonic()->SetFunctionType(HarmonicFunctionType::SIN);
+        m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->SetFunctionType(HarmonicFunctionType::SIN);
     }
 }
 
@@ -83,7 +82,7 @@ void CUpdateHarmonicView::OnCosChoose(wxCommandEvent& event)
 {
     if (m_cos->GetValue())
     {
-        m_controller->GetCurrentHarmonic()->SetFunctionType(HarmonicFunctionType::COS);
+        m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->SetFunctionType(HarmonicFunctionType::COS);
     }
 }
 
@@ -91,7 +90,7 @@ void CUpdateHarmonicView::OnFrequencyChange(wxCommandEvent& event)
 {
     if (m_frequency->GetValue() != "" && m_frequency->Validate())
     {
-        m_controller->GetCurrentHarmonic()->SetFrequency(ConvertWxStringToDouble(m_frequency->GetValue()));
+        m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->SetFrequency(ConvertWxStringToDouble(m_frequency->GetValue()));
     }
 }
 
@@ -99,6 +98,6 @@ void CUpdateHarmonicView::OnPhaseChange(wxCommandEvent& event)
 {
     if (m_phase->GetValue() != "" && m_phase->Validate())
     {
-        m_controller->GetCurrentHarmonic()->SetPhase(ConvertWxStringToDouble(m_phase->GetValue()));
+        m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->SetPhase(ConvertWxStringToDouble(m_phase->GetValue()));
     }
 }

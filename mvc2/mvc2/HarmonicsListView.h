@@ -13,6 +13,7 @@ public:
     ~CHarmonicsListView();
 private:
     std::unique_ptr<CHarmonicsListController> m_controller;
+    std::shared_ptr<CHarmonicsList> m_model;
 
     sig::scoped_connection m_addHarmonicConnection;
     sig::scoped_connection m_deleteHarmonicConnection;

@@ -80,26 +80,20 @@ void CHarmonicsList::SetCurrentIndex(size_t index)
 	m_currentIndexChanged();
 }
 
-GraphPoints CHarmonicsList::CalculateGraphPoints() const
+double CHarmonicsList::CalculateGraphPoints(double x) const
 {
-	GraphPoints points;
-	double n = -10;
-	for (size_t i = 0; i <= 200; i++)
+	double y = 0;
+
+	for (auto const harmonic : m_harmonics)
 	{
-		points.x.push_back(n);
-		points.y.push_back(0);
-		for (auto const harmonic : m_harmonics)
+		if (harmonic->GetFunctionType() == HarmonicFunctionType::SIN)
 		{
-			if (harmonic->GetFunctionType() == HarmonicFunctionType::SIN)
-			{
-				points.y[i] += harmonic->GetAmplitude() * sin(harmonic->GetFrequency() * n + harmonic->GetPhase());
-			}
-			else
-			{
-				points.y[i] += harmonic->GetAmplitude() * cos(harmonic->GetFrequency() * n + harmonic->GetPhase());
-			}
+			y += harmonic->GetAmplitude() * sin(harmonic->GetFrequency() * x + harmonic->GetPhase());
 		}
-		n += 0.1;
+		else
+		{
+			y += harmonic->GetAmplitude() * cos(harmonic->GetFrequency() * x + harmonic->GetPhase());
+		}
 	}
-	return points;
+	return y;
 }

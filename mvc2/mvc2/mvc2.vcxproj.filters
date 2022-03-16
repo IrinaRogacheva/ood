@@ -45,9 +45,6 @@
     <ClInclude Include="UpdateHarmonicView.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="UpdateHarmonicController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="ChartsView.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -57,9 +54,6 @@
     <ClInclude Include="mathplot.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ChartsController.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="CoordinateTableView.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -67,9 +61,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="TabWindow.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="CoordinateTableController.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -98,9 +89,6 @@
     <ClCompile Include="UpdateHarmonicView.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="UpdateHarmonicController.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="ChartsView.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -110,16 +98,10 @@
     <ClCompile Include="mathplot.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="ChartsController.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="CoordinateTableView.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="TabWindow.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="CoordinateTableController.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

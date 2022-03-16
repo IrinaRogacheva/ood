@@ -3,9 +3,8 @@
 
 CCoordinateTableView::CCoordinateTableView(wxWindow* parent, std::shared_ptr<CHarmonicsList> model)
     : wxGrid(parent, wxID_ANY)
+    , m_model(model)
 {
-	m_controller = std::make_unique<CCoordinateTableController>(model, *this);
-
     CreateGrid(201, 2);
     HideRowLabels();
     SetColLabelValue(0, wxString("x"));
@@ -24,18 +23,18 @@ CCoordinateTableView::CCoordinateTableView(wxWindow* parent, std::shared_ptr<CHa
         UpdateTable();
     });
     UpdateTable();
-    m_changeCurrentHarmonic = m_controller->GetCurrentHarmonic()->DoOnHarmonicChanged([=] {
+    m_changeCurrentHarmonic = m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->DoOnHarmonicChanged([=] {
         UpdateTable();
     });
 
     m_changeCurrentHarmonicIndex = model->DoOnCurrentIndexChanged([=] {
-        m_changeCurrentHarmonic = m_controller->GetCurrentHarmonic()->DoOnHarmonicChanged([=] {
+        m_changeCurrentHarmonic = m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->DoOnHarmonicChanged([=] {
             UpdateTable();
         });
     });
 
     m_deleteHarmonicConnection = model->DoOnHarmonicDeleted([=] {
-        if (m_controller->GetHarmonicsCount() == 0)
+        if (m_model->GetHarmonicsCount() == 0)
         {
             ResetTable();
         }
@@ -57,11 +56,11 @@ void CCoordinateTableView::ResetTable()
 
 void CCoordinateTableView::UpdateTable()
 {
-    GraphPoints points = m_controller->GetGraphPoints();
-
+    double x = -10;
     for (size_t i = 0; i <= 200; i++)
     {
-        SetCellValue(i, 0, ConvertDoubleToString(points.x[i]));
-        SetCellValue(i, 1, ConvertDoubleToString(points.y[i]));
+        SetCellValue(i, 0, ConvertDoubleToString(x));
+        SetCellValue(i, 1, ConvertDoubleToString(m_model->CalculateGraphPoints(x)));
+        x += 0.1;
     }
 }

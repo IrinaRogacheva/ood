@@ -1,7 +1,8 @@
 #pragma once
+
+#define _CRT_SECURE_NO_WARNINGS
+#include "HarmonicsList.h"
 #include "wx/wx.h"
-class CUpdateHarmonicController;
-#include "UpdateHarmonicController.h"
 
 class CUpdateHarmonicView : public wxPanel
 {
@@ -9,7 +10,9 @@ public:
     CUpdateHarmonicView(wxWindow* parent, std::shared_ptr<CHarmonicsList> model);
 private:
     void UpdateCurrentHarmonic();
-    std::unique_ptr<CUpdateHarmonicController> m_controller;
+
+    std::shared_ptr<CHarmonicsList> m_model;
+
     wxStaticText* m_amplitudeLabel;
     wxTextCtrl* m_amplitude;
     wxStaticText* m_frequencyLabel;

@@ -4,6 +4,7 @@
 
 CHarmonicsListView::CHarmonicsListView(wxWindow* parent, std::shared_ptr<CHarmonicsList> model)
 	: wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(190, 155))
+	, m_model(model)
 {
 	m_controller = std::make_unique<CHarmonicsListController>(model, *this);
 
@@ -23,23 +24,23 @@ CHarmonicsListView::CHarmonicsListView(wxWindow* parent, std::shared_ptr<CHarmon
 	m_addHarmonicMenu = new CAddHarmonicView(parent, model);
 	
 	m_addHarmonicConnection = model->DoOnHarmonicAdded([=] {
-		AddHarmonic(m_controller->GetLastHarmonic());
+		AddHarmonic(m_model->GetHarmonicAtIndex(m_model->GetHarmonicsCount() - 1));
 	});
-	AddHarmonic(m_controller->GetLastHarmonic());
+	AddHarmonic(m_model->GetHarmonicAtIndex(m_model->GetHarmonicsCount() - 1));
 	m_harmonicsList->SetSelection(0);
 
-	m_changeCurrentHarmonicConnection = m_controller->GetLastHarmonic()->DoOnHarmonicChanged([=] {
-		UpdateHarmonic(m_controller->GetCurrentHarmonic(), m_controller->GetCurrentIndex());
+	m_changeCurrentHarmonicConnection = m_model->GetHarmonicAtIndex(m_model->GetHarmonicsCount() - 1)->DoOnHarmonicChanged([=] {
+		UpdateHarmonic(m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex()), m_model->GetCurrentIndex());
 	});
 
 	m_deleteHarmonicConnection = model->DoOnHarmonicDeleted([=] {
-		DeleteHarmonic(m_controller->GetCurrentIndex());
+		DeleteHarmonic(m_model->GetCurrentIndex());
 	});
 
 	m_changeCurrentHarmonicIndexConnection = model->DoOnCurrentIndexChanged([=] {
-		m_harmonicsList->SetSelection(m_controller->GetCurrentIndex());
-		m_changeCurrentHarmonicConnection = m_controller->GetCurrentHarmonic()->DoOnHarmonicChanged([=] {
-			UpdateHarmonic(m_controller->GetCurrentHarmonic(), m_controller->GetCurrentIndex());
+		m_harmonicsList->SetSelection(m_model->GetCurrentIndex());
+		m_changeCurrentHarmonicConnection = m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->DoOnHarmonicChanged([=] {
+			UpdateHarmonic(m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex()), m_model->GetCurrentIndex());
 		});
 	});
 }
@@ -80,7 +81,7 @@ void CHarmonicsListView::OnAddHarmonicButtonClick(wxCommandEvent& event)
 
 void CHarmonicsListView::OnDeleteHarmonicButtonClick(wxCommandEvent& event)
 {
-	if (m_controller->GetHarmonicsCount() > 0)
+	if (m_model->GetHarmonicsCount() > 0)
 	{
 		m_controller->DeleteHarmonic(m_harmonicsList->GetSelection());
 	}

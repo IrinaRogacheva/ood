@@ -3,15 +3,13 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "mathplot.h"
 #include "HarmonicsList.h"
-class CChartsController;
-#include "ChartsController.h"
 
 class CChartsView : public mpWindow
 {
 public:
     CChartsView(wxWindow* parent, std::shared_ptr<CHarmonicsList> model);
 private:
-    std::unique_ptr<CChartsController> m_controller;
+    std::shared_ptr<CHarmonicsList> m_model;
 
     mpFXYVector* m_chart;
     wxPen m_pen;
