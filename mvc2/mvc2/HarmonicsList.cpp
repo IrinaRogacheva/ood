@@ -20,11 +20,6 @@ sig::connection CHarmonicsList::DoOnHarmonicDeleted(const HarmonicsChangeSignal:
 	return m_harmonicDeleted.connect(handler);
 }
 
-sig::connection CHarmonicsList::DoOnCurrentIndexChanged(const HarmonicsChangeSignal::slot_type& handler)
-{
-	return m_currentIndexChanged.connect(handler);
-}
-
 size_t CHarmonicsList::GetHarmonicsCount() const
 {
 	return m_harmonics.size();
@@ -43,7 +38,6 @@ void CHarmonicsList::AddHarmonic(std::shared_ptr<CHarmonic> harmonic)
 {
 	m_harmonics.push_back(harmonic);
 	m_harmonicAdded();
-	SetCurrentIndex(GetHarmonicsCount() - 1);
 }
 
 void CHarmonicsList::DeleteHarmonic(size_t index)
@@ -52,35 +46,12 @@ void CHarmonicsList::DeleteHarmonic(size_t index)
 	{
 		throw std::out_of_range("Index is out of range");
 	}
-	if (m_currentIndex == 0 && GetHarmonicsCount() > 1)
-	{
-		m_harmonics.erase(m_harmonics.begin() + index);
-		m_harmonicDeleted();
-		SetCurrentIndex(0);
-	}
-	else
-	{
-		m_harmonics.erase(m_harmonics.begin() + index);
-		m_harmonicDeleted();
-		if (index > 0)
-		{
-			SetCurrentIndex(index - 1);
-		}
-	}
+	
+	m_harmonics.erase(m_harmonics.begin() + index);
+	m_harmonicDeleted();
 }
 
-size_t CHarmonicsList::GetCurrentIndex() const
-{
-	return m_currentIndex;
-}
-
-void CHarmonicsList::SetCurrentIndex(size_t index)
-{
-	m_currentIndex = index;
-	m_currentIndexChanged();
-}
-
-double CHarmonicsList::CalculateGraphPoints(double x) const
+double CHarmonicsList::CalculateFunctionValue(double x) const
 {
 	double y = 0;
 

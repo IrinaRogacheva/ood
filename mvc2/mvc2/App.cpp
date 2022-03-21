@@ -8,25 +8,18 @@ bool CApp::OnInit()
 
     m_frame = new wxFrame(NULL, wxID_ANY, "Chart Drawer", wxPoint(400, 200), wxSize(500, 410));
     m_frame->SetBackgroundColour(*wxWHITE);
-    wxBoxSizer* commonSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
     
     wxPanel* panel = new wxPanel(m_frame, wxID_ANY, wxPoint(0, 0), wxSize(500, 1), wxBORDER_SIMPLE);
-    commonSizer->Add(panel, 0, wxEXPAND);
-
-    wxBoxSizer* topSizer = new wxBoxSizer(wxHORIZONTAL);
+    sizer->Add(panel, 0, wxEXPAND);
 
     m_harmonicsListView = new CHarmonicsListView(m_frame, model);
-    topSizer->Add(m_harmonicsListView, 1, wxRIGHT, 65);
-
-    m_updateHarmonicView = new CUpdateHarmonicView(m_frame, model);
-    topSizer->Add(m_updateHarmonicView, 0, wxTOP, 10);
-
-    commonSizer->Add(topSizer, 0, wxALL, 15);
+    sizer->Add(m_harmonicsListView, 0, wxLEFT, 15);
 
     m_tabWindow = new CTabWindow(m_frame, model);
-    commonSizer->Add(m_tabWindow, 1, wxEXPAND|wxALL, 15);
+    sizer->Add(m_tabWindow, 1, wxEXPAND|wxALL, 15);
     
-    m_frame->SetSizerAndFit(commonSizer);
+    m_frame->SetSizerAndFit(sizer);
     m_frame->Show(true);
 
     return true;

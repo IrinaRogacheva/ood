@@ -34,7 +34,6 @@
     <ClInclude Include="mathplot.h" />
     <ClInclude Include="Signals.h" />
     <ClInclude Include="TabWindow.h" />
-    <ClInclude Include="UpdateHarmonicView.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddHarmonicConroller.cpp" />
@@ -49,7 +48,6 @@
     <ClCompile Include="HarmonicsListView.cpp" />
     <ClCompile Include="mathplot.cpp" />
     <ClCompile Include="TabWindow.cpp" />
-    <ClCompile Include="UpdateHarmonicView.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

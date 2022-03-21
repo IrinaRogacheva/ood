@@ -16,16 +16,17 @@ CChartsView::CChartsView(wxWindow* parent, std::shared_ptr<CHarmonicsList> model
     m_addHarmonicConnection = model->DoOnHarmonicAdded([=] {
         AddChart();
         UpdateChart();
-    });
-    UpdateChart();
-    m_changeCurrentHarmonic = m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->DoOnHarmonicChanged([=] {
-        UpdateChart();
-    });
 
-    m_changeCurrentHarmonicIndex = model->DoOnCurrentIndexChanged([=] {
-        m_changeCurrentHarmonic = m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->DoOnHarmonicChanged([=] {
+        m_changeAddedHarmonicVector.push_back(sig::scoped_connection());
+        m_changeAddedHarmonicVector[m_changeAddedHarmonicVector.size() - 1] = m_model->GetHarmonicAtIndex(m_model->GetHarmonicsCount() - 1)->DoOnHarmonicChanged([=] {
             UpdateChart();
         });
+    });
+    
+    UpdateChart();
+    m_changeAddedHarmonicVector.push_back(sig::scoped_connection());
+    m_changeAddedHarmonicVector[m_changeAddedHarmonicVector.size() - 1] = m_model->GetHarmonicAtIndex(m_model->GetHarmonicsCount() - 1)->DoOnHarmonicChanged([=] {
+        UpdateChart();
     });
 
     m_deleteHarmonicConnection = model->DoOnHarmonicDeleted([=] {
@@ -41,7 +42,7 @@ void CChartsView::UpdateChart()
     for (size_t i = 0; i <= 200; i++)
     {
         points.x.push_back(x);
-        points.y.push_back(m_model->CalculateGraphPoints(x));
+        points.y.push_back(m_model->CalculateFunctionValue(x));
         x += 0.1;
     }
     m_chart->SetData(points.x, points.y);

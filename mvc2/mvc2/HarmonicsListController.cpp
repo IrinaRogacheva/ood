@@ -10,9 +10,3 @@ void CHarmonicsListController::DeleteHarmonic(size_t index)
 {
 	m_model->DeleteHarmonic(index);
 }
-
-void CHarmonicsListController::SetCurrentIndex(size_t index)
-{
-	m_model->SetCurrentIndex(index);
-}
-

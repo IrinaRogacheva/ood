@@ -13,8 +13,7 @@ private:
 
     sig::scoped_connection m_addHarmonicConnection;
     sig::scoped_connection m_deleteHarmonicConnection;
-    sig::scoped_connection m_changeCurrentHarmonic;
-    sig::scoped_connection m_changeCurrentHarmonicIndex;
+    std::vector<sig::scoped_connection> m_changeAddedHarmonicVector;
 
     void UpdateTable();
     void ResetTable();

@@ -21,17 +21,18 @@ CCoordinateTableView::CCoordinateTableView(wxWindow* parent, std::shared_ptr<CHa
 
     m_addHarmonicConnection = model->DoOnHarmonicAdded([=] {
         UpdateTable();
-    });
-    UpdateTable();
-    m_changeCurrentHarmonic = m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->DoOnHarmonicChanged([=] {
-        UpdateTable();
-    });
 
-    m_changeCurrentHarmonicIndex = model->DoOnCurrentIndexChanged([=] {
-        m_changeCurrentHarmonic = m_model->GetHarmonicAtIndex(m_model->GetCurrentIndex())->DoOnHarmonicChanged([=] {
+        m_changeAddedHarmonicVector.push_back(sig::scoped_connection());
+        m_changeAddedHarmonicVector[m_changeAddedHarmonicVector.size() - 1] = m_model->GetHarmonicAtIndex(m_model->GetHarmonicsCount() - 1)->DoOnHarmonicChanged([=] {
             UpdateTable();
+            });
         });
-    });
+
+    UpdateTable();
+    m_changeAddedHarmonicVector.push_back(sig::scoped_connection());
+    m_changeAddedHarmonicVector[m_changeAddedHarmonicVector.size() - 1] = m_model->GetHarmonicAtIndex(m_model->GetHarmonicsCount() - 1)->DoOnHarmonicChanged([=] {
+        UpdateTable();
+        });
 
     m_deleteHarmonicConnection = model->DoOnHarmonicDeleted([=] {
         if (m_model->GetHarmonicsCount() == 0)
@@ -60,7 +61,7 @@ void CCoordinateTableView::UpdateTable()
     for (size_t i = 0; i <= 200; i++)
     {
         SetCellValue(i, 0, ConvertDoubleToString(x));
-        SetCellValue(i, 1, ConvertDoubleToString(m_model->CalculateGraphPoints(x)));
+        SetCellValue(i, 1, ConvertDoubleToString(m_model->CalculateFunctionValue(x)));
         x += 0.1;
     }
 }
